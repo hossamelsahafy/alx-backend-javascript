@@ -16,6 +16,16 @@ class Teacher {
         }
     }
 }
+
+class Directors extends Teacher {
+    numberOfReports: number;
+
+    constructor(firstName: string, lastName: string, fullTimeEmployee: boolean, location: string, numberOfReports: number, yearsOfExperience?: number) {
+        super(firstName, lastName, fullTimeEmployee, location, yearsOfExperience);
+        this.numberOfReports = numberOfReports;
+    }
+}
+
 let teacher = new Teacher('Mortada', 'Mash3l', true, 'Alex', 15);
 teacher.contract = true;
 
@@ -26,3 +36,5 @@ console.log(teacher.location);
 console.log(teacher.yearsOfExperience);
 console.log(teacher.contract);
 
+let director1 = new Directors('John', 'Doe', true, 'London', 17);
+console.log(director1);
