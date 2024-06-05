@@ -44,3 +44,8 @@ console.log(teacher.yearsOfExperience);
 console.log(teacher.contract);
 var director1 = new Directors('John', 'Doe', true, 'London', 17);
 console.log(director1);
+function printTeacher(firstName, lastName) {
+    return "".concat(firstName.charAt(0), ". ").concat(lastName);
+}
+var myPrintTeacher = printTeacher;
+console.log(myPrintTeacher("Mortada", "Mash3l"));

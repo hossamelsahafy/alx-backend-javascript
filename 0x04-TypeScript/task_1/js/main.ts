@@ -38,3 +38,15 @@ console.log(teacher.contract);
 
 let director1 = new Directors('John', 'Doe', true, 'London', 17);
 console.log(director1);
+
+function printTeacher(firstName: string, lastName: string): string {
+    return `${firstName.charAt(0)}. ${lastName}`;
+}
+
+interface printTeacherFunction {
+    (firstName: string, lastName: string): string;
+}
+
+let myPrintTeacher: printTeacherFunction = printTeacher;
+
+console.log(myPrintTeacher("Mortada", "Mash3l"));
