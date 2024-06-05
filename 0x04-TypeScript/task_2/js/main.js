@@ -37,3 +37,20 @@ function createEmployee(salary) {
 console.log(createEmployee(200) instanceof Teacher ? 'Teacher' : 'Director');
 console.log(createEmployee(1000) instanceof Teacher ? 'Teacher' : 'Director');
 console.log(createEmployee('$500') instanceof Teacher ? 'Teacher' : 'Director');
+function isDirector(employee) {
+    return employee instanceof Director;
+}
+function executeWork(employee) {
+    if (isDirector(employee)) {
+        return employee.workDirectorTasks();
+    }
+    else {
+        return employee.workTeacherTasks();
+    }
+}
+var director = createEmployee(1000);
+var teacher = createEmployee(200);
+console.log(isDirector(director) ? 'Director' : 'Teacher');
+console.log(isDirector(teacher) ? 'Director' : 'Teacher');
+console.log(executeWork(director));
+console.log(executeWork(teacher));
