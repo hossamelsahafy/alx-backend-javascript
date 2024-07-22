@@ -10,7 +10,9 @@ function countStudents(path) {
       return;
     }
 
-    const students = lines.slice(1).map(line => line.split(',')).filter(line => line.length === 4); // Filter out invalid lines
+    const students = lines
+      .slice(1).map(line => line.split(','))
+      .filter(line => line.length === 4);
 
     const numberOfStudents = students.length;
     console.log(`Number of students: ${numberOfStudents}`);
