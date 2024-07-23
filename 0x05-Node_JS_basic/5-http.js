@@ -4,43 +4,44 @@ const fs = require('fs').promises;
 
 const port = 1245;
 
+
 function countStudents(path) {
-  return fs.readFile(path, 'utf-8')
-    .then((data) => {
-      const lines = data.split('\n').filter((line) => line.trim() !== '');
-
-      if (lines.length <= 1) {
-        return 'Number of students: 0';
-      }
-
-      const students = lines
-        .slice(1)
-        .map((line) => line.split(','))
-        .filter((line) => line.length === 4);
-
-      const numberOfStudents = students.length;
-      let output = `Number of students: ${numberOfStudents}\n`;
-
-      const fields = {};
-      students.forEach((student) => {
-        const field = student[3];
-        const firstname = student[0];
-        if (!fields[field]) {
-          fields[field] = [];
+    return fs.readFile(path, 'utf-8')
+      .then((data) => {
+        const lines = data.split('\n').filter((line) => line.trim() !== '');
+  
+        if (lines.length <= 1) {
+          return 'Number of students: 0';
         }
-        fields[field].push(firstname);
+  
+        const students = lines
+          .slice(1)
+          .map((line) => line.split(','))
+          .filter((line) => line.length === 4);
+  
+        const numberOfStudents = students.length;
+        let output = `Number of students: ${numberOfStudents}\n`;
+  
+        const fields = {};
+        students.forEach((student) => {
+          const field = student[3];
+          const firstname = student[0];
+          if (!fields[field]) {
+            fields[field] = [];
+          }
+          fields[field].push(firstname);
+        });
+  
+        for (const [field, firstnames] of Object.entries(fields)) {
+          output += `Number of students in ${field}: ${firstnames.length}. List: ${firstnames.join(', ')}\n`;
+        }
+  
+        return output.trim();
+      })
+      .catch(() => {
+        return 'Cannot load the database';
       });
-
-      for (const [field, firstnames] of Object.entries(fields)) {
-        output += `Number of students in ${field}: ${firstnames.length}. List: ${firstnames.join(', ')}\n`;
-      }
-
-      return output.trim();
-    })
-    .catch(() => {
-      throw new Error('Cannot load the database');
-    });
-}
+  }
 
 const app = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
@@ -58,7 +59,7 @@ const app = http.createServer((req, res) => {
         res.setHeader('Content-Type', 'text/plain');
         res.end(`This is the list of our students\n${studentsOutput}`);
       })
-      .catch(() => {
+      .catch((err) => {
         res.statusCode = 500;
         res.setHeader('Content-Type', 'text/plain');
         res.end('Cannot load the database');
@@ -71,7 +72,7 @@ const app = http.createServer((req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('...');
+  console.log(`Server is listening on port ${port}`);
 });
 
 module.exports = app;
