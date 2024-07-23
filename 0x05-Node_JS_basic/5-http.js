@@ -36,6 +36,9 @@ function countStudents(path) {
       }
 
       return output.trim();
+    })
+    .catch(() => {
+      throw new Error('Cannot load the database');
     });
 }
 
