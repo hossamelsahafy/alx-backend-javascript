@@ -11,7 +11,7 @@ function calculateNumber(type, a, b) {
     }
     return A / B
   } else {
-    throw new Error('Unknown operation. Use SUM, SUBTRACT, or DIVIDE')
+    throw new Error('Invalid type')
   }
 
 }
